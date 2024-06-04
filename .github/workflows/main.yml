@@ -23,5 +23,5 @@ jobs:
         install.packages("tidyverse", dependencies = TRUE)
         install.packages("mongolite")
       shell: Rscript {0} 
-    - name: Scrape Data GScholar
-      run: Rscript ScrappingGScholar.R
+    - name: scrape_GScholar
+      run: Rscript Scraping_GScholar.R
