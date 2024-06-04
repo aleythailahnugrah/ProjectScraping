@@ -19,7 +19,7 @@ write_last_page <- function(page_number) {
 # Fungsi untuk melakukan scraping
 scrape_Gscholar <- function(url) {
   page <- GET(url)
-  if (status_code(page) == 300) {
+  if (status_code(page) == 200) {
     page_content <- read_html(content(page, "text"))
     titles <- page_content %>% html_nodes('.gs_rt a') %>% html_text(trim = TRUE)
     links <- page_content %>% html_nodes('.gs_rt a') %>% html_attr('href')
