@@ -56,21 +56,34 @@ if (!is.null(GScholar_data)) {
   # MONGODB
   message('Input Data to MongoDB Atlas')
   
-  # Membuat koneksi ke MongoDB Atlas
-  atlas_conn <- mongo(
-    collection = Sys.getenv("ATLAS_COLLECTION"),
-    db         = Sys.getenv("ATLAS_DB"),
-    url        = Sys.getenv("ATLAS_URL")
-  )
+  # Mengecek variabel lingkungan
+  atlas_collection <- Sys.getenv("ATLAS_COLLECTION")
+  atlas_db <- Sys.getenv("ATLAS_DB")
+  atlas_url <- Sys.getenv("ATLAS_URL")
   
-  # Memasukkan data ke MongoDB Atlas
-  atlas_conn$insert(GScholar_data)
-  
-  # Menutup koneksi setelah selesai
-  rm(atlas_conn)
-  
-  # Memperbarui nomor halaman terakhir
-  write_last_page(last_page + 1)
+  if (nzchar(atlas_collection) && nzchar(atlas_db) && nzchar(atlas_url)) {
+    # Membuat koneksi ke MongoDB Atlas
+    atlas_conn <- mongo(
+      collection = atlas_collection,
+      db         = atlas_db,
+      url        = atlas_url
+    )
+    
+    if (!is.null(atlas_conn)) {
+      # Memasukkan data ke MongoDB Atlas
+      atlas_conn$insert(GScholar_data)
+      
+      # Menutup koneksi setelah selesai
+      rm(atlas_conn)
+      
+      # Memperbarui nomor halaman terakhir
+      write_last_page(last_page + 1)
+    } else {
+      print("Gagal membuat koneksi ke MongoDB.")
+    }
+  } else {
+    print("Variabel lingkungan untuk MongoDB tidak lengkap.")
+  }
 } else {
   print("Tidak ada data untuk dimasukkan ke MongoDB.")
 }
