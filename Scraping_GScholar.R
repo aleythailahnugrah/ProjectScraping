@@ -1,3 +1,8 @@
+# Memuat paket yang diperlukan
+library(rvest)
+library(httr)
+library(mongolite)
+
 # Fungsi untuk membaca nomor halaman terakhir dari file
 read_last_page <- function() {
   if (file.exists("last_page.txt")) {
