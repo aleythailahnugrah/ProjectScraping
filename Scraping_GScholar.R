@@ -1,7 +1,3 @@
-library(rvest)
-library(httr)
-library(mongolite)
-
 # Fungsi untuk membaca nomor halaman terakhir dari file
 read_last_page <- function() {
   if (file.exists("last_page.txt")) {
@@ -45,8 +41,10 @@ scrape_Gscholar <- function(url) {
 # Membaca nomor halaman terakhir
 last_page <- read_last_page()
 
-# URL halaman Google Scholar dengan pencarian "LSTM" dan halaman tertentu
-url <- paste0("https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=LSTM&btnG=")
+# Menambahkan parameter tanggal ke dalam URL pencarian
+current_date <- Sys.Date()
+start_date <- format(current_date - 7, "%Y-%m-%d")
+url <- paste0("https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=LSTM&btnG=&as_ylo=", start_date)
 
 # Memanggil fungsi untuk melakukan scraping
 GScholar_data <- scrape_Gscholar(url)
