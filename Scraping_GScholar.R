@@ -17,6 +17,7 @@ write_last_page <- function(page_number) {
   writeLines(as.character(page_number), "last_page.txt")
 }
 
+
 # Fungsi untuk melakukan scraping
 scrape_Gscholar <- function(url) {
   page <- GET(url)
@@ -25,71 +26,57 @@ scrape_Gscholar <- function(url) {
     titles <- page_content %>% html_nodes('.gs_rt a') %>% html_text(trim = TRUE)
     links <- page_content %>% html_nodes('.gs_rt a') %>% html_attr('href')
     authors_journal_date <- page_content %>% html_nodes('.gs_a') %>% html_text(trim = TRUE)
-    
-    if (length(titles) > 0 && length(links) > 0 && length(authors_journal_date) > 0) {
-      data <- data.frame(
+    data <- data.frame(
         title = titles,
         authors_journal_date = authors_journal_date,
         link = paste0("https://scholar.google.com", links),
         stringsAsFactors = FALSE
-      )
-      return(data)
-    } else {
-      return(NULL)
-    }
+    )
+    return(data)
   } else {
     print("Gagal mengambil halaman")
     return(NULL)
+  }
+}
+# Fungsi untuk memeriksa dan memasukkan data ke MongoDB
+insert_to_mongo <- function(data, mongo_conn) {
+  for (i in 1:nrow(data)) {
+    article <- data[i, ]
+    existing <- mongo_conn$find(paste0('{"link": "', article$link, '"}'))
+    if (nrow(existing) == 0) {
+      mongo_conn$insert(article)
+    }
   }
 }
 
 # Membaca nomor halaman terakhir
 last_page <- read_last_page()
 
-# Menambahkan parameter tanggal ke dalam URL pencarian
-current_date <- Sys.Date()
-start_date <- format(current_date - 7, "%Y-%m-%d")
-url <- paste0("https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=LSTM&btnG=&as_ylo=", start_date)
+# Batas maksimal halaman yang ingin diambil
+max_pages <- 20 # Ubah sesuai kebutuhan
 
-# Memanggil fungsi untuk melakukan scraping
-GScholar_data <- scrape_Gscholar(url)
-if (!is.null(GScholar_data)) {
-  print(GScholar_data)
+# Membuat koneksi ke MongoDB Atlas
+atlas_conn <- mongo(
+  collection = Sys.getenv("ATLAS_COLLECTION"),
+  db         = Sys.getenv("ATLAS_DB"),
+  url        = Sys.getenv("ATLAS_URL")
+)
+# Looping untuk mengambil beberapa halaman
+for (i in last_page:(last_page + max_pages - 1)) {
+  url <- paste0("https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=LSTM&btnG=&as_ylo=", i)
+  Gscholar_data <- scrape_Gscholar(url)
   
-  # MONGODB
-  message('Input Data to MongoDB Atlas')
-  
-  # Mengecek variabel lingkungan
-  atlas_collection <- Sys.getenv("ATLAS_COLLECTION")
-  atlas_db <- Sys.getenv("ATLAS_DB")
-  atlas_url <- Sys.getenv("ATLAS_URL")
-  
-  if (nzchar(atlas_collection) && nzchar(atlas_db) && nzchar(atlas_url)) {
-    # Membuat koneksi ke MongoDB Atlas
-    atlas_conn <- mongo(
-      collection = atlas_collection,
-      db         = atlas_db,
-      url        = atlas_url
-    )
-    
-    if (!is.null(atlas_conn)) {
-      # Memasukkan data ke MongoDB Atlas
-      atlas_conn$insert(GScholar_data)
-      
-      # Menutup koneksi setelah selesai
-      rm(atlas_conn)
-      
-      # Memperbarui nomor halaman terakhir
-      write_last_page(last_page + 1)
-    } else {
-      print("Gagal membuat koneksi ke MongoDB.")
-    }
+  if (!is.null(Gscholar_data) && nrow(Gscholar_data) > 0) {
+    insert_to_mongo(Gscholar_data, atlas_conn)
+    write_last_page(i) # Update nomor halaman terakhir
   } else {
-    print("Variabel lingkungan untuk MongoDB tidak lengkap.")
+    print(paste("Tidak ada data pada halaman", i))
+    break # Berhenti jika tidak ada data
   }
-} else {
-  print("Tidak ada data untuk dimasukkan ke MongoDB.")
 }
+
+# Menutup koneksi setelah selesai
+rm(atlas_conn)
 
 # Membuang variabel yang tidak diperlukan
 rm(url, GScholar_data, last_page, read_last_page, write_last_page)
