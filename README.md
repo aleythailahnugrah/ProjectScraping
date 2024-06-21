@@ -22,7 +22,7 @@
 
 ## Tentang  
 
-**Apa sih Google Scholar? itu?**
+**Apa itu Google Scholar?**
 
 <p align="justify">
 Google Scholar adalah layanan web yang disediakan oleh Google yang memungkinkan pengguna untuk mencari materi-materi akademis dalam berbagai format dan bidang ilmu. Layanan ini dirancang khusus untuk membantu peneliti, mahasiswa, dan akademisi menemukan artikel ilmiah, tesis, buku, konferensi, dan dokumen-dokumen ilmiah lainnya. 
@@ -63,6 +63,6 @@ Berikut adalah salah satu contoh dokumen di MongoDB untuk artikel yang tersedia 
 
 ## PPT
 Berikut adalah link PPT:
-https://www.canva.com/design/DAGIG8DyNgw/_X4GyuuUNzSF-zkfA6aAoQ/edit?utm_content=DAGIG8DyNgw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton 
+https://ppt-scraping-aleytha.my.canva.site/
 ## Pengembang
-[Aleytha Ilahnugrah Kurnadipare]((https://github.com/aleythailahnugrah)) - G1501231067
+[Aleytha Ilahnugrah Kurnadipare] [https://github.com/aleythailahnugrah] - G1501231067
