@@ -39,11 +39,11 @@ Google Scholar berfungsi sebagai alat yang sangat berguna untuk akademisi dan pe
 ## Deskripsi
 
 <p align="justify">
-Dalam proyek ini, saya melakukan scraping di situs web [(https://scholar.google.com/)] untuk mengumpulkan artikel jurnal yang membahas penggunaan LSTM (Long Short-Term Memory). LSTM adalah jenis jaringan saraf tiruan dalam kategori Recurrent Neural Networks (RNNs), yang dirancang untuk mengatasi masalah vanishing gradient. LSTM sangat efektif untuk memproses dan memprediksi data sekuensial karena memiliki unit memori yang dapat menyimpan informasi dalam jangka waktu panjang. LSTM banyak diterapkan dalam pemrosesan teks, pengenalan suara, dan analisis deret waktu. Tujuan utama dari scraping ini adalah mengumpulkan artikel penelitian yang menerapkan metode LSTM guna memudahkan analisis data dari berbagai studi yang telah dipublikasikan.
+Dalam proyek ini, saya melakukan scraping di situs web (https://scholar.google.com/) untuk mengumpulkan artikel jurnal yang membahas penggunaan LSTM (Long Short-Term Memory). LSTM adalah jenis jaringan saraf tiruan dalam kategori Recurrent Neural Networks (RNNs), yang dirancang untuk mengatasi masalah vanishing gradient. LSTM sangat efektif untuk memproses dan memprediksi data sekuensial karena memiliki unit memori yang dapat menyimpan informasi dalam jangka waktu panjang. LSTM banyak diterapkan dalam pemrosesan teks, pengenalan suara, dan analisis deret waktu. Tujuan utama dari scraping ini adalah mengumpulkan artikel penelitian yang menerapkan metode LSTM guna memudahkan analisis data dari berbagai studi yang telah dipublikasikan.
 </p>
 
 <p align="justify">
-Dengan melakukan scraping data dari [(https://scholar.google.com/)], kita bisa mendapatkan berbagai informasi penting seperti id, judul artikel, nama jurnal, nama penulis, tahun terbit, dan link. Data ini sangat berguna untuk keperluan penelitian, review literatur, dan analisis tren penggunaan LSTM dalam berbagai bidang. Dengan data yang terkumpul, kita dapat mengidentifikasi pola-pola penelitian, mengevaluasi perkembangan metode LSTM, dan menemukan gap atau peluang baru dalam penelitian yang belum banyak dieksplorasi. Selain itu, data ini juga membantu dalam membangun basis referensi yang lebih komprehensif untuk peneliti lain yang tertarik dengan topik serupa.
+Dengan melakukan scraping data dari (https://scholar.google.com/), kita bisa mendapatkan berbagai informasi penting seperti id, judul artikel, nama jurnal, nama penulis, tahun terbit, dan link. Data ini sangat berguna untuk keperluan penelitian, review literatur, dan analisis tren penggunaan LSTM dalam berbagai bidang. Dengan data yang terkumpul, kita dapat mengidentifikasi pola-pola penelitian, mengevaluasi perkembangan metode LSTM, dan menemukan gap atau peluang baru dalam penelitian yang belum banyak dieksplorasi. Selain itu, data ini juga membantu dalam membangun basis referensi yang lebih komprehensif untuk peneliti lain yang tertarik dengan topik serupa.
 </p>
 </div>
 
@@ -65,4 +65,4 @@ Berikut adalah salah satu contoh dokumen di MongoDB untuk artikel yang tersedia 
 Berikut adalah link PPT:
 https://ppt-scraping-aleytha.my.canva.site/
 ## Pengembang
-[Aleytha Ilahnugrah Kurnadipare] [https://github.com/aleythailahnugrah] - G1501231067
+[Aleytha Ilahnugrah Kurnadipare] (https://github.com/aleythailahnugrah) - G1501231067
